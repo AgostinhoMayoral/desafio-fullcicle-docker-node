@@ -29,6 +29,8 @@ services:
       - DB_NAME=fullcycle
     depends_on:
       - db
+    entrypoint:
+      ['dockerize', '-wait', 'tcp://db:3306', '-timeout', '60s', 'npm', 'start']
     networks:
       - fullcycle
 
