@@ -18,10 +18,11 @@ services:
     build: ./node
     container_name: app
     volumes:
-      - ./node:/usr/app
+      - ./node:/usr/src/app
+      - /usr/src/app/node_modules
     ports:
       - '3000:3000'
-    working_dir: /usr/app
+    working_dir: /usr/src/app
     environment:
       - DB_HOST=db
       - DB_USER=root
@@ -30,7 +31,15 @@ services:
     depends_on:
       - db
     entrypoint:
-      ['dockerize', '-wait', 'tcp://db:3306', '-timeout', '60s', 'npm', 'start']
+      [
+        'dockerize',
+        '-wait',
+        'tcp://db:3306',
+        '-timeout',
+        '60s',
+        'node',
+        'server.js',
+      ]
     networks:
       - fullcycle
 
