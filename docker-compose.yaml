@@ -19,7 +19,7 @@ services:
     container_name: app
     volumes:
       - ./node:/usr/src/app
-      - /usr/src/app/node_modules
+      - /usr/src/app/node_modules # Volume anônimo para preservar o node_modules
     ports:
       - '3000:3000'
     working_dir: /usr/src/app
